@@ -1,0 +1,68 @@
+<html>
+    <head><title>Projects</title>
+    <style>
+        body{
+            background-color: black;
+            color: #fff;
+            font-family: sans-serif;
+        }
+    </style>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+    <script>jQuery(document).ready(function($){
+    
+    var prefix, oldurl, newurl;
+    
+    
+    function updateall(){
+      prefix = $();
+      return 'UPDATE '+prefix+'options SET option_value = replace(option_value, \''+oldurl+'\', \''+newurl+'\') WHERE option_name = \'home\' OR option_name = 'siteurl';UPDATE '+prefix+'posts SET guid = REPLACE (guid, \''+oldurl+'\', \''+newurl+'\');UPDATE '+prefix+'posts SET post_content = REPLACE (post_content, \''+oldurl+'\', \''+oldurl+'\');UPDATE '+prefix+'posts SET post_content = REPLACE (post_content, \'src="'+oldurl+'\', \'src="'+newurl+'\');UPDATE '+prefix+'posts SET guid = REPLACE (guid, \''+oldurl+'\', \''+newurl+'\') WHERE post_type = 'attachment';UPDATE '+prefix+'postmeta SET meta_value = REPLACE (meta_value, \''+oldurl+'\',\''+newurl+'\');'; 
+    }
+    
+    
+    $(document).on("change","#table-prefix",function(){
+      var newval = updateall();
+       $(".form-control").val(newval);
+    });
+    
+    
+    
+    
+    
+    
+    
+    });</script>
+    
+    </head>
+    <body>
+        <nav>
+<ul><li>Back</li></ul>
+        </nav>
+        <div class="container">
+            <h1>Generates the <code>SQL</code> queries for migrating a wordpress DB.</h1>
+            <label for="oldurl">Old URL
+              <input type="text" id="oldurl" ng-model="oldurl" class="form-control">
+            </label>
+            <label for="newurl">New URL
+              <input type="text" id="newurl" ng-model="newurl" class="form-control">
+            </label>
+            <label for="newurl">Table prefix
+              <input type="text" value="wp_" id="table-prefix" ng-model="tablePrefix" class="form-control">
+            </label>
+            <h2>MySQL wordpress DB rename</h2>
+            <textarea class="form-control" onclick="this.select()" rows="8">
+        UPDATE '+prefix+'options SET option_value = replace(option_value, \''+oldurl+'\', \''+newurl+'\') WHERE option_name = 'home' OR option_name = 'siteurl';
+        UPDATE '+prefix+'posts SET guid = REPLACE (guid, \''+oldurl+'\', \''+newurl+'\');
+        UPDATE '+prefix+'posts SET post_content = REPLACE (post_content, \''+oldurl+'\', \''+oldurl+'\');
+        UPDATE '+prefix+'posts SET post_content = REPLACE (post_content, 'src=\"'+oldurl+'\', 'src="'+newurl+'\');
+        UPDATE '+prefix+'posts SET guid = REPLACE (guid, \''+oldurl+'\', \''+newurl+'\') WHERE post_type = 'attachment';
+        UPDATE '+prefix+'postmeta SET meta_value = REPLACE (meta_value, \''+oldurl+'\',\''+newurl+'\');
+            </textarea>
+          </div>
+        <script>
+        
+        </script>
+        
+    </body>
+</html>
